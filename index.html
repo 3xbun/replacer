@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Replacer</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    #app {
+      width: 50%;
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" v-model="text">
+    <p>
+      {{ newText }}
+    </p>
+  </div>
+
+  <script type="module">
+    import { createApp, ref, computed } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+    createApp({
+      setup() {
+        const text = ref("หากฝายกองทัพของคุณคือ Death Guard, เมื่อยูนิตศัตรูอยูภายในระยะ Contagion Range ของยูนิตนี้, ใหลบ 1 จากคุณสมบัติ Toughness ของ โมเดลในยูนิตศัตรูนั้น, ระยะของ Contagion Range จะเปลี่ยนไปในระหวางการตอสู,ดังแสดงดานลาง")
+        const newText = computed(
+          () => text.value.replace(/|/g, "่").replace(//g, "้").replace(/�/g, "ิ").replace(//g, "็").replace(//g, "์").replace(//g, "๋").replace(//g, "ิ")
+        )
+        return {
+          newText,
+          text
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+
+</html>
