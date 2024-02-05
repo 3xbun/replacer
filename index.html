@@ -5,21 +5,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Replacer</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="./main.css">
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <style>
-    #app {
-      width: 50%;
-      margin: auto;
-    }
-  </style>
 </head>
 
 <body>
   <div id="app">
-    <input type="text" v-model="text">
-    <p>
-      {{ newText }}
-    </p>
+    <section class="section">
+      <div class="container">
+        <input class="input" type="text" v-model="text">
+      </div>
+      <br>
+      <div class="card">
+        <div class="card-content">
+          <div class="content">
+            <p id="text">{{ newText }}</p>
+            <button class="button is-success is-light" @click="copy">COPY</button>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 
   <script type="module">
@@ -29,11 +35,16 @@
       setup() {
         const text = ref("")
         const newText = computed(
-          () => text.value.replace(/|/g, "่").replace(//g, "้").replace(/�/g, "ิ").replace(//g, "็").replace(//g, "์").replace(//g, "๋").replace(//g, "ิ")
+          () => text.value.replace(/|/g, "่").replace(//g, "้").replace(/�/g, "ิ").replace(//g, "็").replace(//g, "์").replace(//g, "๋").replace(//g, "ิ").replace(/ นิิว/g, "\"")
         )
+
+        const copy = () => {
+          navigator.clipboard.writeText(newText.value);
+        }
         return {
           newText,
-          text
+          text,
+          copy
         }
       }
     }).mount('#app')
